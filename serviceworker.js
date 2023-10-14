@@ -6,20 +6,22 @@ self.addEventListener('push', (event) => {
         console.error('Received WebPush with an empty title. Received body: ', pushData);
     }
     event.waitUntil(self.registration.showNotification(pushData.title, pushData));
+
+    // Track show
 });
 
 
 self.addEventListener('notificationclick', function (event) {
     event.notification.close();
 
-    if (!event.notification.url) {
+    if (!event.notification.data || !event.notification.data.url) {
         console.error('Click on WebPush without url. Received body: ', event.notification)
         return;
     }
 
     event.waitUntil(
         clients.matchAll({type: 'window'}).then(function () {
-            return clients.openWindow(event.notification.url)
+            return clients.openWindow(event.notification.data.url)
         })
     );
 
