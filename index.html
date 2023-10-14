@@ -10,17 +10,33 @@
 <body>
 
 <script>
+    // Code mostly from https://developer.apple.com/videos/play/wwdc2022/10098/
+
     if (navigator.serviceWorker) {
         // scope option provided only for github page case
         navigator.serviceWorker.register('https://andreinwald.github.io/webpush-ios-example/serviceworker.js', {scope: '/webpush-ios-example/'})
-            .then((registration) =>{
+            .then((registration) => {
                 registration.update();
             });
     }
+
+    async function subscribeToPush() {
+        let swRegistration = await navigator.serviceWorker.getRegistration();
+        let serverPublicKey = VAPID_PUBLIC_KEY;
+
+        let subscriptionOptions = {
+            userVisibleOnly: true,
+            applicationServerKey: serverPublicKey
+        };
+
+        let subscription = await swRegistration.pushManager.subscribe(subscriptionOptions);
+        console.log('New subscription', subscription);
+    }
 </script>
 
+<h1>WebPush iOS example</h1>
 
-WebPush iOS example
+<button onclick="subscribeToPush()">Subscribe to notifications</button>
 
 
 </body>
