@@ -1,4 +1,3 @@
-// Code based on https://developer.apple.com/videos/play/wwdc2022/10098/
 self.addEventListener('push', (event) => {
     let pushData = event.data.json();
     // pushData sample: {"title": "Push title","body":"body", "url":"https://andreinwald.github.io/webpush-ios-example/success.html"}
