@@ -19,15 +19,17 @@ self.addEventListener('push', (event) => {
 self.addEventListener('notificationclick', function (event) {
     event.notification.close();
 
-    if (!event.notification || !event.notification.data || !event.notification.data.url) {
-        console.error('Received WebPush without url. Received body: ' + JSON.stringify(event.notification))
-        return;
-    }
+    console.log(event);
 
-    event.waitUntil(
-        clients.matchAll({type: 'window'}).then(function () {
-            return clients.openWindow(event.notification.data.url)
-        })
-    );
+    // if (!event.notification || !event.notification.data || !event.notification.data.url) {
+    //     console.error('Received WebPush without url. Received body: ' + JSON.stringify(event.notification))
+    //     return;
+    // }
+    //
+    // event.waitUntil(
+    //     clients.matchAll({type: 'window'}).then(function () {
+    //         return clients.openWindow(event.notification.data.url)
+    //     })
+    // );
     // Track click
 });
