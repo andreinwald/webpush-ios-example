@@ -1,7 +1,13 @@
 self.addEventListener('push', (event) => {
+    // PushData sample - https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification
+    // {
+    //   "title": "Push title",
+    //   "body": "Additional text with some description",
+    //   "data": {
+    //     "url": "https://andreinwald.github.io/webpush-ios-example/success.html"
+    //   }
+    // }
     let pushData = event.data.json();
-    // pushData sample: {"title": "Push title","body":"body", "url":"https://andreinwald.github.io/webpush-ios-example/success.html"}
-    // read more about fields https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification
     if (!pushData || !pushData.title) {
         console.error('Received WebPush with an empty title. Received body: ', pushData);
     }
@@ -14,8 +20,12 @@ self.addEventListener('push', (event) => {
 self.addEventListener('notificationclick', function (event) {
     event.notification.close();
 
-    if (!event.notification.data || !event.notification.data.url) {
-        console.error('Click on WebPush without url. Received body: ', event.notification)
+    if (!event.notification.data) {
+        console.error('Click on WebPush with empty data, where url should be. Notification: ', event.notification)
+        return;
+    }
+    if (!event.notification.data.url) {
+        console.error('Click on WebPush without url. Notification: ', event.notification)
         return;
     }
 
