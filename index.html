@@ -9,6 +9,14 @@
 </head>
 <body>
 
+<script>
+    if (navigator.serviceWorker) {
+        // scope option provided only for github page case
+        navigator.serviceWorker.register('https://andreinwald.github.io/webpush-ios-example/serviceworker.js', {scope: '/webpush-ios-example/'});
+    }
+</script>
+
+
 WebPush iOS example
 
 
