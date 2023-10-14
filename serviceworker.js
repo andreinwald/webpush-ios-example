@@ -1,8 +1,9 @@
 // Code mostly from https://developer.apple.com/videos/play/wwdc2022/10098/
 self.addEventListener('push', (event) => {
-    console.log('Received Push', event.data);
-
     let pushMessageJSON = event.data.json();
+    if (!pushMessageJSON.title) {
+        console.error('Received WebPush with an empty title');
+    }
 
     event.waitUntil(self.registration.showNotification(pushMessageJSON.title, {
         body: pushMessageJSON.body,
