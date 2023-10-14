@@ -11,16 +11,17 @@
 
 <script>
     // Code mostly from https://developer.apple.com/videos/play/wwdc2022/10098/
-
-    var registration;
-    if ('serviceWorker' in navigator) {
+    async function registerServiceWorker() {
         let registration = await navigator.serviceWorker.getRegistration();
-        console.log('Registered worker', registration);
         if (!registration) {
             registration = await navigator.serviceWorker.register('https://andreinwald.github.io/webpush-ios-example/serviceworker.js', {scope: '/webpush-ios-example/'});
         }
+        console.log('Registered worker', registration);
     }
 
+    if ('serviceWorker' in navigator) {
+        registerServiceWorker();
+    }
 </script>
 
 
