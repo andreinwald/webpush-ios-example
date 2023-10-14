@@ -10,6 +10,21 @@ npx web-push generate-vapid-keys --json
 # {"publicKey":"BAwUJxIa7mJZMqu78T...","privateKey":"wH3Mire4Nr..."}
 ```
 
+## Result of subscription
+
+And this will be for Google Chrome (FCM):
+```json
+{
+  "endpoint": "https://fcm.googleapis.com/fcm/send/eEsw5ryoAzo:APA91bHC...",
+  "expirationTime": null,
+  "keys": {
+    "p256dh": "BKDBx7wkagZSlDsaT...",
+    "auth": "zKa3taDY2VWoM4..."
+  }
+}
+```
+
+
 
 Resources:
 - [Meet Web Push for Safari on developer.apple.com](https://developer.apple.com/videos/play/wwdc2022/10098/)
