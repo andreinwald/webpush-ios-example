@@ -21,12 +21,12 @@
     }
 
     async function subscribeToPush() {
-        const serverPublicKey = 'wfhwoe8fh823vm9823mvt934tv3';
+        const vapidPublicKey = 'wfhwoe8fh823vm9823mvt934tv3';
         let swRegistration = await navigator.serviceWorker.getRegistration();
 
         let subscriptionOptions = {
             userVisibleOnly: true,
-            applicationServerKey: serverPublicKey
+            applicationServerKey: vapidPublicKey
         };
 
         let subscription = await swRegistration.pushManager.subscribe(subscriptionOptions);
