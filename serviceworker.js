@@ -19,7 +19,7 @@ self.addEventListener('push', (event) => {
 self.addEventListener('notificationclick', function (event) {
     event.notification.close();
 
-    if (!event.notification || !event.notification.data.url) {
+    if (!event.notification || !event.notification.data || !event.notification.data.url) {
         console.error('Received WebPush without url. Received body: ' + JSON.stringify(event.notification))
         return;
     }
