@@ -1,21 +1,21 @@
 // Code mostly from https://developer.apple.com/videos/play/wwdc2022/10098/
 self.addEventListener('push', (event) => {
-    let pushMessageJSON = event.data.json();
-    if (!pushMessageJSON.title) {
-        console.error('Received WebPush with an empty title');
+    let pushData = event.data.json();
+    if (!pushData.title) {
+        console.error('Received WebPush with an empty title. Received body: ' + JSON.stringify(pushData));
     }
 
-    event.waitUntil(self.registration.showNotification(pushMessageJSON.title, {
-        body: pushMessageJSON.body,
-        tag: pushMessageJSON.tag,
+    event.waitUntil(self.registration.showNotification(pushData.title, {
+        body: pushData.body,
+        tag: pushData.tag,
         // actions: [{
-        //     action: pushMessageJSON.actionURL,
-        //     title: pushMessageJSON.actionTitle,
+        //     action: pushData.actionURL,
+        //     title: pushData.actionTitle,
         // }]
     }));
 });
 
-self.addEventListener('notificationclick', async function(event) {
+self.addEventListener('notificationclick', async function (event) {
     if (!event.action)
         return;
 
