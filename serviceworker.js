@@ -1,4 +1,4 @@
-// Code mostly from https://developer.apple.com/videos/play/wwdc2022/10098/
+// Code based on https://developer.apple.com/videos/play/wwdc2022/10098/
 self.addEventListener('push', (event) => {
     let pushData = event.data.json();
     if (!pushData.title) {
@@ -15,11 +15,19 @@ self.addEventListener('push', (event) => {
     }));
 });
 
-self.addEventListener('notificationclick', async function (event) {
-    if (!event.action)
-        return;
 
-    // This always opens a new browser tab,
-    // even if the URL happens to already be open in a tab.
-    clients.openWindow(event.action);
+self.addEventListener('notificationclick', function (event) {
+    event.notification.close();
+
+    if (!event.notification.data.url) {
+        console.error('Received WebPush without url. Received body: ' + JSON.stringify(event.notification.data))
+        return;
+    }
+
+    event.waitUntil(
+        clients.matchAll({type: 'window'}).then(function () {
+            return clients.openWindow(event.notification.data.url)
+        })
+    );
+    // Track click
 });
