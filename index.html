@@ -10,17 +10,12 @@
 <body>
 
 <script>
-    // Code mostly from https://developer.apple.com/videos/play/wwdc2022/10098/
-    async function registerServiceWorker() {
-        let registration = await navigator.serviceWorker.getRegistration();
-        if (!registration) {
-            registration = await navigator.serviceWorker.register('https://andreinwald.github.io/webpush-ios-example/serviceworker.js', {scope: '/webpush-ios-example/'});
-        }
-        console.log('Registered worker', registration);
-    }
-
-    if ('serviceWorker' in navigator) {
-        registerServiceWorker();
+    if (navigator.serviceWorker) {
+        // scope option provided only for github page case
+        navigator.serviceWorker.register('https://andreinwald.github.io/webpush-ios-example/serviceworker.js', {scope: '/webpush-ios-example/'})
+            .then((registration) =>{
+                registration.update();
+            });
     }
 </script>
 
