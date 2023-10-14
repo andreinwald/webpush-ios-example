@@ -21,14 +21,15 @@
     }
 
     async function subscribeToPush() {
-        const vapidPublicKey = 'wfhwoe8fh823vm9823mvt934tv3';
-        let swRegistration = await navigator.serviceWorker.getRegistration();
+        // Public part of VAPID key, generation of that covered in README @TODO
+        // All subscription tokens associated with that key, so if you change it - you may lost old subscribers
+        const vapidPublicKey = 'd2Zod29lOGZoODIzdm05ODIzbXZ0OTM0dHYz';
 
+        let swRegistration = await navigator.serviceWorker.getRegistration();
         let subscriptionOptions = {
             userVisibleOnly: true,
             applicationServerKey: vapidPublicKey
         };
-
         let subscription = await swRegistration.pushManager.subscribe(subscriptionOptions);
         console.log('New subscription', subscription);
     }
