@@ -11,6 +11,17 @@
 <body>
 
 <script>
+    if (navigator.serviceWorker) {
+        initServiceWorker();
+    }
+    if (!window.navigator.standalone) {
+        document.getElementById('subscribe_btn').style.display = 'block';
+    }
+    window.onerror = (error) => {
+        // Displaying error inside HTML for easier mobile debugging
+        displayError(error.message + '<br><br>' + error.stack);
+    }
+
     async function initServiceWorker() {
         let swRegistration = await navigator.serviceWorker.register('https://andreinwald.github.io/webpush-ios-example/serviceworker.js', {scope: '/webpush-ios-example/'})
         let pushManager = swRegistration.pushManager;
@@ -30,10 +41,6 @@
                 document.getElementById('subscribe_btn').style.display = 'none';
                 document.getElementById('active_sub').innerHTML = 'Push Notifications denied by user';
         }
-    }
-
-    if (navigator.serviceWorker) {
-        initServiceWorker();
     }
 
     async function subscribeToPush() {
@@ -71,14 +78,13 @@
     function displayError(text) {
         document.getElementById('error-text').innerHTML = 'Error: ' + text;
     }
-
-    window.onerror = (error) => {
-        // Displaying error inside HTML for easier mobile debugging
-        displayError(error.message + '<br><br>' + error.stack);
-    }
 </script>
 
 <div style="max-width: 800px;margin: 0 auto;font-family: Arial,sans-serif;font-size: 1em;">
+    <div id="add-to-home-screen" style="display: none;background-color: bisque;padding: 10px;">
+        For WebPush work you may need to add this website to Home Screen at your iPhone or iPad.
+    </div>
+
     <div id="error-text" style="color: red;padding: 10px"></div>
 
     <h1>WebPush iOS example</h1>
