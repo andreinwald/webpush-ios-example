@@ -52,7 +52,7 @@
             let subscription = await swRegistration.pushManager.subscribe(subscriptionOptions);
             displaySubscriptionInfo(subscription);
         } catch (error) {
-            document.getElementById('error-text').innerHTML = JSON.stringify(error.message);
+            document.getElementById('error-text').innerHTML = 'Error: ' + error.message + '<br>' + JSON.stringify(err.stack);
         }
     }
 </script>
