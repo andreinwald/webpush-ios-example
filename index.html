@@ -20,6 +20,7 @@
                 break;
             case 'granted':
                 let subscription = await pushManager.getSubscription();
+                console.log(subscription.toJSON());
                 document.getElementById('active_sub').style.display = 'block';
                 let subscriptionText = JSON.stringify(subscription.toJSON(), null, '<br>');
                 document.getElementById('active_sub').innerHTML = '<b>Active subscription:</b><br>' + subscriptionText;
