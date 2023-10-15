@@ -31,13 +31,6 @@
         initServiceWorker();
     }
 
-    function displaySubscriptionInfo(subscription) {
-        document.getElementById('subscribe_btn').style.display = 'none';
-        document.getElementById('active_sub').style.display = 'block';
-        document.getElementById('active_sub').innerHTML = '<b>Active subscription:</b><br>'
-            + JSON.stringify(subscription.toJSON());
-    }
-
     async function subscribeToPush() {
         // Public part of VAPID key, generation of that covered in README
         // All subscription tokens associated with that key, so if you change it - you may lose old subscribers
@@ -45,6 +38,11 @@
 
         try {
             let swRegistration = await navigator.serviceWorker.getRegistration();
+            if (!swRegistration.pushManager) {
+                displayError('PushManager is not active. You may not added site to desktop on iPhone');
+                return;
+            }
+
             let subscriptionOptions = {
                 userVisibleOnly: true,
                 applicationServerKey: VAPID_PUBLIC_KEY
@@ -53,8 +51,24 @@
             let subscription = await pushManager.subscribe(subscriptionOptions);
             displaySubscriptionInfo(subscription);
         } catch (error) {
-            document.getElementById('error-text').innerHTML = 'Error: ' + error.message + '<br><br>' + error.stack;
+            displayError();
         }
+    }
+
+    function displaySubscriptionInfo(subscription) {
+        document.getElementById('subscribe_btn').style.display = 'none';
+        document.getElementById('active_sub').style.display = 'block';
+        document.getElementById('active_sub').innerHTML = '<b>Active subscription:</b><br>'
+            + JSON.stringify(subscription.toJSON());
+    }
+
+    function displayError(text) {
+        document.getElementById('error-text').innerHTML = 'Error: ' + text;
+    }
+
+    window.onerror = (error) => {
+        // Displaying error inside HTML for easier mobile debugging
+        displayError(error.message + '<br><br>' + error.stack);
     }
 </script>
 
