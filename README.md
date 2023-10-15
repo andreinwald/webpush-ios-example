@@ -11,7 +11,16 @@ npx web-push generate-vapid-keys --json
 ```
 
 ## Result of subscription
-
+For desktop and mobile Safari:
+```json
+{
+  "endpoint": "https://web.push.apple.com/QGuQyavXutnMH...",
+  "keys": {
+    "p256dh": "BF6-hyiRMKKKiiH...",
+    "auth": "lM6vKjBJ1UX..."
+  }
+}
+```
 And this will be for Google Chrome (FCM):
 ```json
 {
@@ -28,8 +37,13 @@ And this will be for Google Chrome (FCM):
 
 Resources:
 - [Meet Web Push for Safari on developer.apple.com](https://developer.apple.com/videos/play/wwdc2022/10098/)
+- [Sending web push notifications in web apps and browsers on developer.apple.com](https://developer.apple.com/documentation/usernotifications/sending_web_push_notifications_in_web_apps_and_browsers)
 - [Vapid token standart](https://blog.mozilla.org/services/2016/08/23/sending-vapid-identified-webpush-notifications-via-mozillas-push-service/)
 - [VAPID RFC standard](https://datatracker.ietf.org/doc/html/rfc8292)
 - [Webpush options like image and actions](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification)
 - [Apple PUSH server response codes](https://developer.apple.com/documentation/usernotifications/sending_web_push_notifications_in_web_apps_and_browsers)
 - [The service worker lifecycle](https://web.dev/articles/service-worker-lifecycle)
+
+Keywords:
+- ServiceWorkerRegistration.pushManager is undefined
+- undefined is not an object pushManager.subscribe
