@@ -5,10 +5,10 @@
 ## Generating VAPID key
 VAPID stands for Voluntary Application Server Identification
 ```shell
-npx web-push generate-vapid-keys --json
-
-# will return something like
-# {"publicKey":"BAwUJxIa7mJZMqu78T...","privateKey":"wH3Mire4Nr..."}
+openssl ecparam -name prime256v1 -genkey -noout -out vapid_private.pem ; cat vapid_private.pem
+# Example: MHcCAQEEIPBagUE2r11hZHWcKWyZM6n+TNZ9PQHVLgXK8Gp/fJBXoAoGCCqGSM49AwEHoUQDQgAE2aVVRIU9bkC1pO+6woPWbKjx2OCS3NI9oVeAnwCeLkorqTSFQ/yfgYTLwDUWioisgmlC/DX6jNVMDLwKSy7dKw==
+openssl ec -in vapid_private.pem -pubout -out vapid_public.pem ; cat vapid_public.pem
+# Example: MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE2aVVRIU9bkC1pO+6woPWbKjx2OCS3NI9oVeAnwCeLkorqTSFQ/yfgYTLwDUWioisgmlC/DX6jNVMDLwKSy7dKw==
 ```
 
 ## Result of subscription
@@ -39,7 +39,7 @@ And this will be for Google Chrome (FCM):
 Resources:
 - [Meet Web Push for Safari on developer.apple.com](https://developer.apple.com/videos/play/wwdc2022/10098/)
 - [Sending web push notifications in web apps and browsers on developer.apple.com](https://developer.apple.com/documentation/usernotifications/sending_web_push_notifications_in_web_apps_and_browsers)
-- [Vapid token standart](https://blog.mozilla.org/services/2016/08/23/sending-vapid-identified-webpush-notifications-via-mozillas-push-service/)
+- [Vapid token standard](https://blog.mozilla.org/services/2016/08/23/sending-vapid-identified-webpush-notifications-via-mozillas-push-service/)
 - [VAPID RFC standard](https://datatracker.ietf.org/doc/html/rfc8292)
 - [Webpush options like image and actions](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification)
 - [Web App Manifest for standalone mode](https://developer.mozilla.org/en-US/docs/Web/Manifest)
