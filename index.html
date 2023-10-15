@@ -21,8 +21,8 @@
             case 'granted':
                 let subscription = await pushManager.getSubscription();
                 document.getElementById('active_sub').style.display = 'block';
-                document.getElementById('active_sub').innerHTML = '<b>Active subscription:</b><br><code>'
-                    + JSON.stringify(subscription.toJSON(), null, 2) + '</code>>';
+                let subscriptionText = JSON.stringify(subscription.toJSON(), null, 3).replace('   ', '<br>')
+                document.getElementById('active_sub').innerHTML = '<b>Active subscription:</b><br>' + subscriptionText;
                 break;
             case 'denied':
                 console.log('Push Notifications denied by user');
