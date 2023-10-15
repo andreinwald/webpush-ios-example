@@ -42,6 +42,7 @@ Resources:
 - [Vapid token standart](https://blog.mozilla.org/services/2016/08/23/sending-vapid-identified-webpush-notifications-via-mozillas-push-service/)
 - [VAPID RFC standard](https://datatracker.ietf.org/doc/html/rfc8292)
 - [Webpush options like image and actions](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification)
+- [Web App Manifest for standalone mode](https://developer.mozilla.org/en-US/docs/Web/Manifest)
 - [The ServiceWorker lifecycle](https://web.dev/articles/service-worker-lifecycle)
 
 Keywords:

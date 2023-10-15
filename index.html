@@ -1,10 +1,9 @@
 <html lang="en">
 <head>
     <title>WebPush iOS example</title>
-    <link rel="canonical" href="https://andreinwald.github.io/webpush-ios-example/"/>
     <base href="https://andreinwald.github.io/webpush-ios-example/">
+    <link rel="manifest" href="manifest.json" />
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-
     <link rel="apple-touch-icon" href="images/favicon.png">
     <link rel="icon" type="image/png" href="images/favicon.png">
 </head>
@@ -15,7 +14,7 @@
         initServiceWorker();
     }
     if (!window.navigator.standalone) {
-        document.getElementById('subscribe_btn').style.display = 'block';
+        document.getElementById('add-to-home-screen').style.display = 'block';
     }
     window.onerror = (error) => {
         // Displaying error inside HTML for easier mobile debugging
@@ -82,7 +81,7 @@
 
 <div style="max-width: 800px;margin: 0 auto;font-family: Arial,sans-serif;font-size: 1em;">
     <div id="add-to-home-screen" style="display: none;background-color: bisque;padding: 10px;">
-        For WebPush work you may need to add this website to Home Screen at your iPhone or iPad.
+        For WebPush work you may need to add this website to Home Screen at your iPhone or iPad (window.navigator is not standalone).
     </div>
 
     <div id="error-text" style="color: red;padding: 10px"></div>
