@@ -14,10 +14,10 @@
 
     if (navigator.serviceWorker) {
         // scope option provided only for github page case
-        navigator.serviceWorker.register('https://andreinwald.github.io/webpush-ios-example/serviceworker.js', {scope: '/webpush-ios-example/'})
-            .then((registration) => {
-                registration.update();
-            });
+        navigator.serviceWorker.register('https://andreinwald.github.io/webpush-ios-example/serviceworker.js', {scope: '/webpush-ios-example/'});
+            // .then((registration) => {
+            //     registration.update();
+            // });
     }
 
     async function subscribeToPush() {

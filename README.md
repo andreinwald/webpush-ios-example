@@ -32,3 +32,4 @@ Resources:
 - [VAPID RFC standard](https://datatracker.ietf.org/doc/html/rfc8292)
 - [Webpush options like image and actions](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification)
 - [Apple PUSH server response codes](https://developer.apple.com/documentation/usernotifications/sending_web_push_notifications_in_web_apps_and_browsers)
+- [The service worker lifecycle](https://web.dev/articles/service-worker-lifecycle)
