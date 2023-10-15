@@ -3,14 +3,19 @@
 
 
 ## Generating VAPID key
-VAPID stands for Voluntary Application Server Identification
+- All subscription tokens associated with that key, so if you change it - you may lose old subscribers
+- You MUST need generate your own VAPID keys!
+- Newer share your PRIVATE_VAPID_KEY. It should be stored in a safe storage
+
 ```shell
-openssl ecparam -name prime256v1 -genkey -noout -out vapid_private.pem ; cat vapid_private.pem
-# Example: MHcCAQEEIPBagUE2r11hZHWcKWyZM6n+TNZ9PQHVLgXK8Gp/fJBXoAoGCCqGSM49AwEHoUQDQgAE2aVVRIU9bkC1pO+6woPWbKjx2OCS3NI9oVeAnwCeLkorqTSFQ/yfgYTLwDUWioisgmlC/DX6jNVMDLwKSy7dKw==
-openssl ec -in vapid_private.pem -pubout -out vapid_public.pem ; cat vapid_public.pem
-# Example: MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE2aVVRIU9bkC1pO+6woPWbKjx2OCS3NI9oVeAnwCeLkorqTSFQ/yfgYTLwDUWioisgmlC/DX6jNVMDLwKSy7dKw==
+openssl ecparam -genkey -name prime256v1 -out vapid_private.pem
+openssl ec -in vapid_private.pem -pubout -outform DER|tail -c 65|base64|tr -d '=' |tr '/+' '_-' >> vapid_public.txt
+echo 'VAPID public:' ; cat vapid_public.txt
+# Example: BCa4t85iJ0AYDG__5r48lo-HNdpi_29458t8R6zRTsF1OUi1QyvCRd_tOyXVkqH3nzsZdMzSRLlKJTXQyN7QI4s
+openssl ec -in vapid_private.pem -outform DER|tail -c +8|head -c 32|base64|tr -d '=' |tr '/+' '_-' >> vapid_private.txt
+echo 'VAPID private:' ; cat vapid_private.txt
+# Example: Mz8GQ4Fx16dI-iEUZTp6KTLVsUrcIOfJmWWXlKb0Qgo
 ```
-You don't need to use the “-----BEGIN PUBLIC KEY------” and “-----END PUBLIC KEY-----” lines
 
 ## Result of subscription
 For desktop and mobile Safari:
