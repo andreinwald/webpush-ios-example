@@ -17,8 +17,10 @@
 
     <div id="error-text" style="color: red;padding: 10px"></div>
 
-    Open this page at your iPhone/iPad:
-    <img src="images/qrcode.png" style="display: block;max-width: 100%" alt="qrCode"><br><br>
+    <div id="scan-qr-code">
+        Open this page at your iPhone/iPad:
+        <img src="images/qrcode.png" style="display: block;max-width: 100%" alt="qrCode"><br><br>
+    </div>
 
     <button id="subscribe_btn" onclick="subscribeToPush()">Subscribe to notifications</button>
 
@@ -33,7 +35,10 @@
     }
     window.onerror = (error) => {
         // Displaying error inside HTML for easier mobile debugging
-        displayError(error.message + '<br><br>' + error.stack);
+        document.getElementById('error-text').innerHTML = 'Error: ' + error.message + '<br><br>' + error.stack;
+    }
+    if (detectIOS()) {
+        document.getElementById('scan-qr-code').style.display = 'none';
     }
 
     async function initServiceWorker() {
@@ -76,27 +81,17 @@
         // All subscription tokens associated with that key, so if you change it - you may lose old subscribers
         const VAPID_PUBLIC_KEY = 'BAwUJxIa7mJZMqu78Tfy2Sb1BWnYiAatFCe1cxpnM-hxNtXjAwaNKz1QKLU8IYYhjUASOFzSvSnMgC00vfsU0IM';
 
-        try {
-            let swRegistration = await navigator.serviceWorker.getRegistration();
-            if (!swRegistration.pushManager) {
-                displayError('PushManager is not active. You may not added site to Home Screen on iPhone');
-                document.getElementById('subscribe_btn').style.display = 'none';
-                return;
-            }
-
-            let subscriptionOptions = {
-                userVisibleOnly: true,
-                applicationServerKey: VAPID_PUBLIC_KEY
-            };
-            let pushManager = swRegistration.pushManager;
-            if (!isPushManagerActive(pushManager)) {
-                return;
-            }
-            let subscription = await pushManager.subscribe(subscriptionOptions);
-            displaySubscriptionInfo(subscription);
-        } catch (error) {
-            displayError();
+        let swRegistration = await navigator.serviceWorker.getRegistration();
+        let pushManager = swRegistration.pushManager;
+        if (!isPushManagerActive(pushManager)) {
+            return;
         }
+        let subscriptionOptions = {
+            userVisibleOnly: true,
+            applicationServerKey: VAPID_PUBLIC_KEY
+        };
+        let subscription = await pushManager.subscribe(subscriptionOptions);
+        displaySubscriptionInfo(subscription);
     }
 
     function displaySubscriptionInfo(subscription) {
@@ -106,8 +101,17 @@
             + JSON.stringify(subscription.toJSON());
     }
 
-    function displayError(text) {
-        document.getElementById('error-text').innerHTML = 'Error: ' + text;
+    function detectIOS() {
+        return [
+                'iPad Simulator',
+                'iPhone Simulator',
+                'iPod Simulator',
+                'iPad',
+                'iPhone',
+                'iPod'
+            ].includes(navigator.platform)
+            // iPad on iOS 13 detection
+            || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
     }
 </script>
 
