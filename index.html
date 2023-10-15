@@ -9,6 +9,7 @@
 </head>
 <body>
 <div style="max-width: 800px;margin: 0 auto;font-family: Arial,sans-serif;font-size: 1em;">
+    <h1>WebPush iOS example</h1>
     <div id="add-to-home-screen" style="display: none;background-color: bisque;padding: 10px;">
         For WebPush work you may need to add this website to Home Screen at your iPhone or iPad (window.navigator is not
         standalone).
@@ -16,12 +17,12 @@
 
     <div id="error-text" style="color: red;padding: 10px"></div>
 
-    <h1>WebPush iOS example</h1>
     Open this page at your iPhone/iPad:
     <img src="images/qrcode.png" style="display: block;max-width: 100%" alt="qrCode"><br><br>
-    <button id="subscribe_btn" onclick="subscribeToPush()">Subscribe to notifications</button>
-    <div id="active_sub" style="display:none;background-color: #e7e7ff;padding: 20px;word-wrap: break-word;"></div>
 
+    <button id="subscribe_btn" onclick="subscribeToPush()">Subscribe to notifications</button>
+
+    <div id="active_sub" style="display:none;background-color: #e7e7ff;padding: 20px;word-wrap: break-word;"></div>
     <br><br><a href="https://github.com/andreinwald/webpush-ios-example">Code of this page</a>
 </div>
 
@@ -29,9 +30,6 @@
 <script>
     if (navigator.serviceWorker) {
         initServiceWorker();
-    }
-    if (!window.navigator.standalone) {
-        document.getElementById('add-to-home-screen').style.display = 'block';
     }
     window.onerror = (error) => {
         // Displaying error inside HTML for easier mobile debugging
@@ -41,11 +39,11 @@
     async function initServiceWorker() {
         let swRegistration = await navigator.serviceWorker.register('https://andreinwald.github.io/webpush-ios-example/serviceworker.js', {scope: '/webpush-ios-example/'})
         let pushManager = swRegistration.pushManager;
-        // if (!pushManager) {
-        //     displayError('PushManager is not active. You may not added site to Home Screen on iPhone');
-        //     document.getElementById('subscribe_btn').style.display = 'none';
-        //     return;
-        // }
+
+        if (!isPushManagerActive(pushManager)) {
+            return;
+        }
+
         let permissionState = await pushManager.permissionState({userVisibleOnly: true});
         switch (permissionState) {
             case 'prompt':
@@ -55,7 +53,21 @@
                 break;
             case 'denied':
                 document.getElementById('subscribe_btn').style.display = 'none';
-                document.getElementById('active_sub').innerHTML = 'Push Notifications denied by user';
+                document.getElementById('active_sub').innerHTML = 'Push Notifications disabled by user';
+        }
+    }
+
+    function isPushManagerActive(pushManager) {
+        if (!pushManager) {
+            if (!window.navigator.standalone) {
+                document.getElementById('add-to-home-screen').style.display = 'block';
+            } else {
+                throw new Error('PushManager is not active');
+            }
+            document.getElementById('subscribe_btn').style.display = 'none';
+            return false;
+        } else {
+            return true;
         }
     }
 
@@ -77,6 +89,9 @@
                 applicationServerKey: VAPID_PUBLIC_KEY
             };
             let pushManager = swRegistration.pushManager;
+            if (!isPushManagerActive(pushManager)) {
+                return;
+            }
             let subscription = await pushManager.subscribe(subscriptionOptions);
             displaySubscriptionInfo(subscription);
         } catch (error) {
