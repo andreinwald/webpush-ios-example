@@ -11,11 +11,19 @@
 
 <script>
     if (navigator.serviceWorker) {
-        // scope option provided only for GitHub /webpush-ios-example/ page case
-        navigator.serviceWorker.register('https://andreinwald.github.io/webpush-ios-example/serviceworker.js', {scope: '/webpush-ios-example/'});
-        // .then((registration) => {
-        //     registration.update();
-        // });
+        navigator.serviceWorker.register('https://andreinwald.github.io/webpush-ios-example/serviceworker.js', {scope: '/webpush-ios-example/'})
+            .then((swRegistration) => {
+                switch (swRegistration.pushManager.permissionState()) {
+                    case 'prompt':
+                        break;
+                    case 'granted':
+                        let subscription = swRegistration.pushManager.getSubscription();
+                        console.log('Active push subscription ', subscription);
+                        break;
+                    case 'denied':
+                        console.log('Push Notifications denied by user');
+                }
+            });
     }
 
     async function subscribeToPush() {
