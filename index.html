@@ -17,7 +17,7 @@
             case 'prompt':
                 break;
             case 'granted':
-                let subscription = swRegistration.pushManager.getSubscription();
+                let subscription = await swRegistration.pushManager.getSubscription();
                 console.log('Active push subscription ', subscription);
                 break;
             case 'denied':
