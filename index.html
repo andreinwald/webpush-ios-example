@@ -10,14 +10,12 @@
 <body>
 
 <script>
-    // Code mostly from https://developer.apple.com/videos/play/wwdc2022/10098/
-
     if (navigator.serviceWorker) {
-        // scope option provided only for github page case
+        // scope option provided only for GitHub /webpush-ios-example/ page case
         navigator.serviceWorker.register('https://andreinwald.github.io/webpush-ios-example/serviceworker.js', {scope: '/webpush-ios-example/'});
-            // .then((registration) => {
-            //     registration.update();
-            // });
+        // .then((registration) => {
+        //     registration.update();
+        // });
     }
 
     async function subscribeToPush() {

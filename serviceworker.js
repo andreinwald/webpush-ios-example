@@ -3,7 +3,7 @@ self.addEventListener('push', (event) => {
     // {
     //   "title": "Push title",
     //   "body": "Additional text with some description",
-    //   "icon": "https://andreinwald.github.io/webpush-ios-example/images/favicon.png",
+    //   "icon": "https://andreinwald.github.io/webpush-ios-example/images/push_icon.jpg",
     //   "data": {
     //     "url": "https://andreinwald.github.io/webpush-ios-example/success.html",
     //     "message_id": "your_internal_unique_message_id_for_tracking"
