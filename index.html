@@ -12,13 +12,14 @@
 <script>
     async function initServiceWorker() {
         let swRegistration = await navigator.serviceWorker.register('https://andreinwald.github.io/webpush-ios-example/serviceworker.js', {scope: '/webpush-ios-example/'})
-        let permissionState = await swRegistration.pushManager.permissionState({userVisibleOnly: true});
+        let pushManager = swRegistration.pushManager;
+        let permissionState = await pushManager.permissionState({userVisibleOnly: true});
         switch (permissionState) {
             case 'prompt':
                 break;
             case 'granted':
-                let subscription = await swRegistration.pushManager.getSubscription();
-                console.log('Active push subscription ', subscription);
+                let subscription = await pushManager.getSubscription();
+                console.log('Active push subscription ', subscription.toJSON());
                 break;
             case 'denied':
                 console.log('Push Notifications denied by user');
@@ -30,8 +31,8 @@
     }
 
     async function subscribeToPush() {
-        // Public part of VAPID key, generation of that covered in README @TODO
-        // All subscription tokens associated with that key, so if you change it - you may lost old subscribers
+        // Public part of VAPID key, generation of that covered in README
+        // All subscription tokens associated with that key, so if you change it - you may lose old subscribers
         const VAPID_PUBLIC_KEY = 'BAwUJxIa7mJZMqu78Tfy2Sb1BWnYiAatFCe1cxpnM-hxNtXjAwaNKz1QKLU8IYYhjUASOFzSvSnMgC00vfsU0IM';
 
         let swRegistration = await navigator.serviceWorker.getRegistration();

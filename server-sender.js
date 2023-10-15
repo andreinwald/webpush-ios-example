@@ -1,4 +1,4 @@
-// Public part of VAPID key, generation of that covered in README @TODO
+// Public part of VAPID key, generation of that covered in README
 // All subscription tokens associated with that key, so if you change it - you may lost old subscribers
 // You MUST need generate your own VAPID keys!
 // Newer share your PRIVATE_VAPID_KEY. It should be stored in a safe storage
