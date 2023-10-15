@@ -3,7 +3,7 @@
     <title>WebPush iOS example</title>
     <link rel="canonical" href="https://andreinwald.github.io/webpush-ios-example/"/>
     <base href="https://andreinwald.github.io/webpush-ios-example/">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <link rel="apple-touch-icon" href="images/favicon.png">
     <link rel="icon" type="image/png" href="images/favicon.png">
@@ -20,7 +20,8 @@
                 break;
             case 'granted':
                 let subscription = await pushManager.getSubscription();
-                document.getElementById('active_sub').innerHTML = '<b>Active subscription:</b><br>' + JSON.stringify(subscription.toJSON(), null, 2);
+                document.getElementById('active_sub').innerHTML = '<b>Active subscription:</b><br><code>'
+                    + JSON.stringify(subscription.toJSON(), null, 2) + '</code>>';
                 break;
             case 'denied':
                 console.log('Push Notifications denied by user');
