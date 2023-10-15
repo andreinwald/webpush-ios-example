@@ -10,6 +10,7 @@ openssl ecparam -name prime256v1 -genkey -noout -out vapid_private.pem ; cat vap
 openssl ec -in vapid_private.pem -pubout -out vapid_public.pem ; cat vapid_public.pem
 # Example: MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE2aVVRIU9bkC1pO+6woPWbKjx2OCS3NI9oVeAnwCeLkorqTSFQ/yfgYTLwDUWioisgmlC/DX6jNVMDLwKSy7dKw==
 ```
+You don't need to use the “-----BEGIN PUBLIC KEY------” and “-----END PUBLIC KEY-----” lines
 
 ## Result of subscription
 For desktop and mobile Safari:
