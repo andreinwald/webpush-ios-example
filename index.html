@@ -10,20 +10,23 @@
 <body>
 
 <script>
+    async function initServiceWorker() {
+        let swRegistration = await navigator.serviceWorker.register('https://andreinwald.github.io/webpush-ios-example/serviceworker.js', {scope: '/webpush-ios-example/'})
+        let permissionState = await swRegistration.pushManager.permissionState();
+        switch (permissionState) {
+            case 'prompt':
+                break;
+            case 'granted':
+                let subscription = swRegistration.pushManager.getSubscription();
+                console.log('Active push subscription ', subscription);
+                break;
+            case 'denied':
+                console.log('Push Notifications denied by user');
+        }
+    }
+
     if (navigator.serviceWorker) {
-        navigator.serviceWorker.register('https://andreinwald.github.io/webpush-ios-example/serviceworker.js', {scope: '/webpush-ios-example/'})
-            .then((swRegistration) => {
-                switch (swRegistration.pushManager.permissionState()) {
-                    case 'prompt':
-                        break;
-                    case 'granted':
-                        let subscription = swRegistration.pushManager.getSubscription();
-                        console.log('Active push subscription ', subscription);
-                        break;
-                    case 'denied':
-                        console.log('Push Notifications denied by user');
-                }
-            });
+        initServiceWorker();
     }
 
     async function subscribeToPush() {
