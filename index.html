@@ -27,7 +27,8 @@
 
     <div id="active_sub" style="display:none;background-color: #e7e7ff;padding: 20px;word-wrap: break-word;"></div>
 
-    <a href="https://github.com/andreinwald/webpush-ios-example" style="position: fixed;bottom: 10px;left:10px;">Code of this page</a>
+    <a href="https://github.com/andreinwald/webpush-ios-example" style="position: fixed;bottom: 10px;left:10px;">Code of
+        this page</a>
 </div>
 
 
@@ -60,7 +61,8 @@
                 break;
             case 'denied':
                 document.getElementById('subscribe_btn').style.display = 'none';
-                document.getElementById('active_sub').innerHTML = 'Push Notifications disabled by user';
+                document.getElementById('active_sub').style.display = 'block';
+                document.getElementById('active_sub').innerHTML = 'User denied push permission';
         }
     }
 
@@ -96,7 +98,8 @@
             let subscription = await pushManager.subscribe(subscriptionOptions);
             displaySubscriptionInfo(subscription);
         } catch (error) {
-            document.getElementById('active_sub').innerHTML = 'Push Notifications disabled by user';
+            document.getElementById('active_sub').style.display = 'block';
+            document.getElementById('active_sub').innerHTML = 'User denied push permission';
         }
     }
 
