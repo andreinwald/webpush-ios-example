@@ -19,7 +19,7 @@
                 break;
             case 'granted':
                 let subscription = await pushManager.getSubscription();
-                console.log('Active push subscription ', subscription.toJSON());
+                document.getElementById('active_sub').innerHTML = '<b>Active subscription:</b><br>' + subscription.toJSON();
                 break;
             case 'denied':
                 console.log('Push Notifications denied by user');
@@ -48,6 +48,8 @@
 <h1>WebPush iOS example</h1>
 
 <button onclick="subscribeToPush()">Subscribe to notifications</button>
+
+<div id="active_sub" style="background-color: #ffa"></div>
 
 
 </body>
