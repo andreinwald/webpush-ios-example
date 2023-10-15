@@ -22,8 +22,8 @@
                 let subscription = await pushManager.getSubscription();
                 console.log(subscription.toJSON());
                 document.getElementById('active_sub').style.display = 'block';
-                let subscriptionText = JSON.stringify(subscription.toJSON(), null, '<br>');
-                document.getElementById('active_sub').innerHTML = '<b>Active subscription:</b><br>' + subscriptionText;
+                document.getElementById('active_sub').innerHTML = '<b>Active subscription:</b><br>'
+                    + JSON.stringify(subscription.toJSON());
                 break;
             case 'denied':
                 console.log('Push Notifications denied by user');
@@ -52,7 +52,7 @@
 <div style="max-width: 1200px;margin: 0 auto;">
     <h1>WebPush iOS example</h1>
     <button onclick="subscribeToPush()">Subscribe to notifications</button>
-    <div id="active_sub" style="display:none;background-color: #e7e7ff;padding: 20px"></div>
+    <div id="active_sub" style="display:none;background-color: #e7e7ff;padding: 20px;word-wrap: break-word;"></div>
 </div>
 
 </body>
