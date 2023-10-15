@@ -12,7 +12,7 @@
 <script>
     async function initServiceWorker() {
         let swRegistration = await navigator.serviceWorker.register('https://andreinwald.github.io/webpush-ios-example/serviceworker.js', {scope: '/webpush-ios-example/'})
-        let permissionState = await swRegistration.pushManager.permissionState();
+        let permissionState = await swRegistration.pushManager.permissionState({userVisibleOnly: true});
         switch (permissionState) {
             case 'prompt':
                 break;
