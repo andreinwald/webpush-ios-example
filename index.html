@@ -53,7 +53,7 @@
             let subscription = await pushManager.subscribe(subscriptionOptions);
             displaySubscriptionInfo(subscription);
         } catch (error) {
-            document.getElementById('error-text').innerHTML = 'Error: ' + error.message + '<br><br>' + JSON.stringify(error.stack);
+            document.getElementById('error-text').innerHTML = 'Error: ' + error.message + '<br><br>' + error.stack;
         }
     }
 </script>
