@@ -53,12 +53,12 @@
             let subscription = await pushManager.subscribe(subscriptionOptions);
             displaySubscriptionInfo(subscription);
         } catch (error) {
-            document.getElementById('error-text').innerHTML = 'Error: ' + error.message + '<br>' + JSON.stringify(error.stack);
+            document.getElementById('error-text').innerHTML = 'Error: ' + error.message + '<br><br>' + JSON.stringify(error.stack);
         }
     }
 </script>
 
-<div style="max-width: 800px;margin: 0 auto;font-family: Arial,sans-serif">
+<div style="max-width: 800px;margin: 0 auto;font-family: Arial,sans-serif;font-size: 1em;">
     <div id="error-text" style="color: red;padding: 10px"></div>
 
     <h1>WebPush iOS example</h1>
