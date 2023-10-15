@@ -3,6 +3,7 @@ WebPush for IOS sample code
 
 
 ## Generating VAPID key
+VAPID stands for Voluntary Application Server Identification
 ```shell
 npx web-push generate-vapid-keys --json
 
@@ -41,8 +42,7 @@ Resources:
 - [Vapid token standart](https://blog.mozilla.org/services/2016/08/23/sending-vapid-identified-webpush-notifications-via-mozillas-push-service/)
 - [VAPID RFC standard](https://datatracker.ietf.org/doc/html/rfc8292)
 - [Webpush options like image and actions](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification)
-- [Apple PUSH server response codes](https://developer.apple.com/documentation/usernotifications/sending_web_push_notifications_in_web_apps_and_browsers)
-- [The service worker lifecycle](https://web.dev/articles/service-worker-lifecycle)
+- [The ServiceWorker lifecycle](https://web.dev/articles/service-worker-lifecycle)
 
 Keywords:
 - ServiceWorkerRegistration.pushManager is undefined
