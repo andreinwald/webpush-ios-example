@@ -90,8 +90,12 @@
             userVisibleOnly: true,
             applicationServerKey: VAPID_PUBLIC_KEY
         };
-        let subscription = await pushManager.subscribe(subscriptionOptions);
-        displaySubscriptionInfo(subscription);
+        try {
+            let subscription = await pushManager.subscribe(subscriptionOptions);
+            displaySubscriptionInfo(subscription);
+        } catch (error) {
+            document.getElementById('error-text').innerHTML = 'Error: ' + error.message + '<br><br>' + error.stack;
+        }
     }
 
     function displaySubscriptionInfo(subscription) {
