@@ -53,6 +53,7 @@
         }
 
         let permissionState = await pushManager.permissionState({userVisibleOnly: true});
+        document.getElementById('error-text').innerHTML = JSON.stringify(permissionState);
         switch (permissionState) {
             case 'prompt':
                 break;
