@@ -19,19 +19,23 @@
             case 'prompt':
                 break;
             case 'granted':
-                let subscription = await pushManager.getSubscription();
-                console.log(subscription.toJSON());
-                document.getElementById('active_sub').style.display = 'block';
-                document.getElementById('active_sub').innerHTML = '<b>Active subscription:</b><br>'
-                    + JSON.stringify(subscription.toJSON());
+                displaySubscriptionInfo(await pushManager.getSubscription())
                 break;
             case 'denied':
-                console.log('Push Notifications denied by user');
+                document.getElementById('subscribe_btn').style.display = 'none';
+                document.getElementById('active_sub').innerHTML = 'Push Notifications denied by user';
         }
     }
 
     if (navigator.serviceWorker) {
         initServiceWorker();
+    }
+
+    function displaySubscriptionInfo(subscription) {
+        document.getElementById('subscribe_btn').style.display = 'none';
+        document.getElementById('active_sub').style.display = 'block';
+        document.getElementById('active_sub').innerHTML = '<b>Active subscription:</b><br>'
+            + JSON.stringify(subscription.toJSON());
     }
 
     async function subscribeToPush() {
@@ -45,13 +49,13 @@
             applicationServerKey: VAPID_PUBLIC_KEY
         };
         let subscription = await swRegistration.pushManager.subscribe(subscriptionOptions);
-        console.log('New subscription', subscription);
+        displaySubscriptionInfo(subscription);
     }
 </script>
 
 <div style="max-width: 1200px;margin: 0 auto;">
     <h1>WebPush iOS example</h1>
-    <button onclick="subscribeToPush()">Subscribe to notifications</button>
+    <button id="subscribe_btn" onclick="subscribeToPush()">Subscribe to notifications</button>
     <div id="active_sub" style="display:none;background-color: #e7e7ff;padding: 20px;word-wrap: break-word;"></div>
 </div>
 
