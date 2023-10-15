@@ -48,3 +48,4 @@ Resources:
 Keywords:
 - ServiceWorkerRegistration.pushManager is undefined
 - undefined is not an object pushManager.subscribe
+- User denied push permission
