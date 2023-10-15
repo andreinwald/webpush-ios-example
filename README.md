@@ -1,4 +1,11 @@
 # WebPush for iOS sample code and demo site
+tl;dr iOS WebPush specifics:
+- user required to add your site to Home Page of his iPhone/iPad
+- manifest.json is required to set display: standalone
+- you dont need to register at apple.com to receive something like GCM_SENDER_ID
+- instead, you need to generate pair of public and private keys, called VAPID
+- other things works pretty like Google Chrome WebPush
+
 ![screenshot of webpush iphone prompt](images/webpush-iphone-prompt.jpg)
 
 
