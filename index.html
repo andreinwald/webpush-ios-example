@@ -43,17 +43,23 @@
         // All subscription tokens associated with that key, so if you change it - you may lose old subscribers
         const VAPID_PUBLIC_KEY = 'BAwUJxIa7mJZMqu78Tfy2Sb1BWnYiAatFCe1cxpnM-hxNtXjAwaNKz1QKLU8IYYhjUASOFzSvSnMgC00vfsU0IM';
 
-        let swRegistration = await navigator.serviceWorker.getRegistration();
-        let subscriptionOptions = {
-            userVisibleOnly: true,
-            applicationServerKey: VAPID_PUBLIC_KEY
-        };
-        let subscription = await swRegistration.pushManager.subscribe(subscriptionOptions);
-        displaySubscriptionInfo(subscription);
+        try {
+            let swRegistration = await navigator.serviceWorker.getRegistration();
+            let subscriptionOptions = {
+                userVisibleOnly: true,
+                applicationServerKey: VAPID_PUBLIC_KEY
+            };
+            let subscription = await swRegistration.pushManager.subscribe(subscriptionOptions);
+            displaySubscriptionInfo(subscription);
+        } catch (error) {
+            document.getElementById('error-text').innerHTML = JSON.stringify(error.message);
+        }
     }
 </script>
 
 <div style="max-width: 800px;margin: 0 auto;">
+    <div id="error-text" style="color: red;padding: 10px"></div>
+
     <h1>WebPush iOS example</h1>
     Open this page at your iPhone/iPad:
     <img src="images/qrcode.png" style="display: block;max-width: 100%" alt="qrCode"><br><br>
