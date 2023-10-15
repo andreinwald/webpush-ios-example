@@ -14,6 +14,11 @@
     async function initServiceWorker() {
         let swRegistration = await navigator.serviceWorker.register('https://andreinwald.github.io/webpush-ios-example/serviceworker.js', {scope: '/webpush-ios-example/'})
         let pushManager = swRegistration.pushManager;
+        if (!pushManager) {
+            displayError('PushManager is not active. You may not added site to desktop on iPhone');
+            document.getElementById('subscribe_btn').style.display = 'none';
+            return;
+        }
         let permissionState = await pushManager.permissionState({userVisibleOnly: true});
         switch (permissionState) {
             case 'prompt':
@@ -40,6 +45,7 @@
             let swRegistration = await navigator.serviceWorker.getRegistration();
             if (!swRegistration.pushManager) {
                 displayError('PushManager is not active. You may not added site to desktop on iPhone');
+                document.getElementById('subscribe_btn').style.display = 'none';
                 return;
             }
 
