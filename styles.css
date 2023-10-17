@@ -9,7 +9,7 @@ body {
     margin: 0 auto;
 }
 
-@supports not (-webkit-touch-callout: none) {
+@supports (-webkit-touch-callout: none) {
     #scan-qr-code {
         display: none;
     }
