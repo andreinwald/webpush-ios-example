@@ -1,0 +1,16 @@
+body {
+    background-color: #cfc7e2;
+    font-family: Arial, sans-serif;
+    font-size: 1em;
+}
+
+.wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+@supports not (-webkit-touch-callout: none) {
+    #scan-qr-code {
+        display: none;
+    }
+}

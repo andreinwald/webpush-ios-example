@@ -4,13 +4,13 @@
     <base href="https://andreinwald.github.io/webpush-ios-example/">
     <link rel="manifest" href="manifest.json"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="apple-touch-icon" href="images/favicon.png">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="icon" type="image/png" href="images/favicon.png">
 </head>
-<body style="background-color: #cfc7e2">
-<div style="max-width: 800px;margin: 0 auto;font-family: Arial,sans-serif;font-size: 1em;">
+<body>
+<div class="wrapper">
     <h1>WebPush iOS example</h1>
+
     <div id="add-to-home-screen" style="display: none;background-color: bisque;padding: 10px;">
         For WebPush work you may need to add this website to Home Screen at your iPhone or iPad (window.navigator is not
         standalone).
@@ -33,100 +33,6 @@
         this page</a>
 </div>
 
-
-<script>
-    fetch('https://web.push.apple.com/QGuQyavXutnMHFNaUzvGnr52BmqrukUzahCONuE_oxlBFk6KBwPzEnu335qxdqmYmWy8XlziM_K3BXVtIF1FuHWUxFRBBojYYVD5mv4tfp0Xrqt-_Pa47Gbc3kulVPRuSnrgIGgvJA8KgLIMkHM9dEAE71IIKUW4bVSQl6Jgx4U');
-
-    if (navigator.serviceWorker) {
-        initServiceWorker();
-    }
-    window.onerror = (error) => {
-        // Displaying error inside HTML for easier mobile debugging
-        document.getElementById('error-text').innerHTML = 'Error: ' + error.message + '<br><br>' + error.stack;
-    }
-    if (detectIOS()) {
-        document.getElementById('scan-qr-code').style.display = 'none';
-    }
-
-    async function initServiceWorker() {
-        let swRegistration = await navigator.serviceWorker.register('https://andreinwald.github.io/webpush-ios-example/serviceworker.js', {scope: '/webpush-ios-example/'})
-        let pushManager = swRegistration.pushManager;
-
-        if (!isPushManagerActive(pushManager)) {
-            return;
-        }
-
-        let permissionState = await pushManager.permissionState({userVisibleOnly: true});
-        switch (permissionState) {
-            case 'prompt':
-                break;
-            case 'granted':
-                displaySubscriptionInfo(await pushManager.getSubscription())
-                break;
-            case 'denied':
-                document.getElementById('subscribe_btn').style.display = 'none';
-                document.getElementById('active_sub').style.display = 'block';
-                document.getElementById('active_sub').innerHTML = 'User denied push permission';
-        }
-    }
-
-    function isPushManagerActive(pushManager) {
-        if (!pushManager) {
-            if (!window.navigator.standalone) {
-                document.getElementById('add-to-home-screen').style.display = 'block';
-            } else {
-                throw new Error('PushManager is not active');
-            }
-            document.getElementById('subscribe_btn').style.display = 'none';
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    async function subscribeToPush() {
-        // Public part of VAPID key, generation of that covered in README
-        // All subscription tokens associated with that key, so if you change it - you may lose old subscribers
-        const VAPID_PUBLIC_KEY = 'BAwUJxIa7mJZMqu78Tfy2Sb1BWnYiAatFCe1cxpnM-hxNtXjAwaNKz1QKLU8IYYhjUASOFzSvSnMgC00vfsU0IM';
-
-        let swRegistration = await navigator.serviceWorker.getRegistration();
-        let pushManager = swRegistration.pushManager;
-        if (!isPushManagerActive(pushManager)) {
-            return;
-        }
-        let subscriptionOptions = {
-            userVisibleOnly: true,
-            applicationServerKey: VAPID_PUBLIC_KEY
-        };
-        try {
-            let subscription = await pushManager.subscribe(subscriptionOptions);
-            displaySubscriptionInfo(subscription);
-        } catch (error) {
-            document.getElementById('active_sub').style.display = 'block';
-            document.getElementById('active_sub').innerHTML = 'User denied push permission';
-        }
-    }
-
-    function displaySubscriptionInfo(subscription) {
-        document.getElementById('subscribe_btn').style.display = 'none';
-        document.getElementById('active_sub').style.display = 'block';
-        document.getElementById('active_sub').innerHTML = '<b>Active subscription:</b><br>'
-            + JSON.stringify(subscription.toJSON());
-    }
-
-    function detectIOS() {
-        return [
-                'iPad Simulator',
-                'iPhone Simulator',
-                'iPod Simulator',
-                'iPad',
-                'iPhone',
-                'iPod'
-            ].includes(navigator.platform)
-            // iPad on iOS 13 detection
-            || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
-    }
-</script>
-
+<script src="scripts.js"></script>
 </body>
 </html>
