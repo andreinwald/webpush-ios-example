@@ -17,7 +17,6 @@ async function initServiceWorker() {
             break;
         case 'granted':
             displaySubscriptionInfo(await pushManager.getSubscription())
-            document.getElementById('test_send_btn').style.display = 'block';
             break;
         case 'denied':
             document.getElementById('subscribe_btn').style.display = 'none';
@@ -66,9 +65,11 @@ async function subscribeToPush() {
 }
 
 function displaySubscriptionInfo(subscription) {
+    document.getElementById('subscribe_btn').style.display = 'none';
     document.getElementById('active_sub').style.display = 'block';
     document.getElementById('active_sub').innerHTML = '<b>Active subscription:</b><br><br>'
         + JSON.stringify(subscription.toJSON());
+    document.getElementById('test_send_btn').style.display = 'block';
 }
 
 function testSend() {
