@@ -13,10 +13,12 @@ async function initServiceWorker() {
     let permissionState = await pushManager.permissionState({userVisibleOnly: true});
     switch (permissionState) {
         case 'prompt':
+            document.getElementById('subscribe_btn').style.display = 'block';
             break;
         case 'granted':
             displaySubscriptionInfo(await pushManager.getSubscription())
             document.getElementById('unsubscribe').style.display = 'none';
+            document.getElementById('test_send_btn').style.display = 'block';
             break;
         case 'denied':
             document.getElementById('subscribe_btn').style.display = 'none';
@@ -74,7 +76,6 @@ async function unsubscribeFromPush() {
 }
 
 function displaySubscriptionInfo(subscription) {
-    document.getElementById('subscribe_btn').style.display = 'none';
     document.getElementById('active_sub').style.display = 'block';
     document.getElementById('active_sub').innerHTML = '<b>Active subscription:</b><br>'
         + JSON.stringify(subscription.toJSON());

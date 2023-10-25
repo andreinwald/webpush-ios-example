@@ -35,9 +35,11 @@ body {
 }
 
 #subscribe_btn, #test_send_btn {
-    display: block;
+    display: none;
     width: 100%;
-    line-height: 2
+    line-height: 2;
+    font-size: 20px;
+    margin-top: 10px;
 }
 
 #active_sub {
