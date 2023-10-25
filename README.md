@@ -11,6 +11,13 @@ WebPush - browser technology that allows site developer send notifications from 
 
 <img src="images/webpush-iphone-prompt.png">
 
+# More details
+- Require adding to Home Screen
+- Display: standalone
+- [Generating VAPID key](#-Generating-VAPID-key)
+- Saving subscription token
+- Sending push message
+
 ## Generating VAPID key
 - All subscription tokens associated with that key, so if you change it - you may lose old subscribers
 - You MUST need generate your own VAPID keys!
