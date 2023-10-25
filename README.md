@@ -11,7 +11,7 @@ _WebPush - browser technology that allows site developer send notifications from
 <br><br>
 <img src="images/webpush-iphone-prompt.png" style="height:400px">
 
-# More details
+## How to add WebPush at your site:
 - Require adding to Home Screen
 - Display: standalone
 - [Generating VAPID key](#Generating-VAPID-key)
