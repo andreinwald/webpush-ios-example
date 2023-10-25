@@ -17,7 +17,6 @@ async function initServiceWorker() {
             break;
         case 'granted':
             displaySubscriptionInfo(await pushManager.getSubscription())
-            document.getElementById('unsubscribe').style.display = 'none';
             document.getElementById('test_send_btn').style.display = 'block';
             break;
         case 'denied':
@@ -64,15 +63,6 @@ async function subscribeToPush() {
         document.getElementById('active_sub').style.display = 'block';
         document.getElementById('active_sub').innerHTML = 'User denied push permission';
     }
-}
-
-async function unsubscribeFromPush() {
-    let swRegistration = await navigator.serviceWorker.getRegistration();
-    let pushManager = swRegistration.pushManager;
-    if (!isPushManagerActive(pushManager)) {
-        return;
-    }
-
 }
 
 function displaySubscriptionInfo(subscription) {
