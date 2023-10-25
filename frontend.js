@@ -67,7 +67,7 @@ async function subscribeToPush() {
 
 function displaySubscriptionInfo(subscription) {
     document.getElementById('active_sub').style.display = 'block';
-    document.getElementById('active_sub').innerHTML = '<b>Active subscription:</b><br>'
+    document.getElementById('active_sub').innerHTML = '<b>Active subscription:</b><br><br>'
         + JSON.stringify(subscription.toJSON());
 }
 
