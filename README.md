@@ -14,7 +14,7 @@ _WebPush - browser technology that allows site developer send notifications from
 # More details
 - Require adding to Home Screen
 - Display: standalone
-- [Generating VAPID key](#-Generating-VAPID-key)
+- [Generating VAPID key](#Generating-VAPID-key)
 - Saving subscription token
 - Sending push message
 
