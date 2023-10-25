@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <title>WebPush iOS example</title>
-    <base href="https://andreinwald.github.io/webpush-ios-example/">
+<!--    <base href="https://andreinwald.github.io/webpush-ios-example/">-->
     <link rel="manifest" href="manifest.json"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -12,28 +12,21 @@
 <div class="wrapper">
     <h1>WebPush iOS example</h1>
 
-    <div id="add-to-home-screen" style="display: none;background-color: bisque;padding: 10px;">
+    <div id="add-to-home-screen">
         For WebPush work you may need to add this website to Home Screen at your iPhone or iPad (window.navigator is not
         standalone).
-        <img src="images/webpush-add-to-home-screen.jpg" style="display: block;max-width: 100%"
-             alt="webpush add to some screen"><br><br>
+        <img src="images/webpush-add-to-home-screen.jpg" alt="webpush add to some screen">
     </div>
 
-    <div id="error-text" style="color: red;padding: 10px"></div>
-
-    <div id="scan-qr-code">
-        Open this page at your iPhone/iPad:
-        <img src="images/qrcode.png" style="display: block;max-width: 100%" alt="qrCode"><br><br>
+    <div id="scan-qr-code">Open this page at your iPhone/iPad:
+        <img src="images/qrcode.png" alt="qrCode"><br><br>
     </div>
 
-    <button id="subscribe_btn" onclick="subscribeToPush()" style="display: block;width: 100%;line-height: 2">Subscribe
-        to notifications
-    </button>
+    <button id="subscribe_btn" onclick="subscribeToPush()">Subscribe to notifications</button>
 
-    <div id="active_sub" style="display:none;background-color: #e7e7ff;padding: 20px;word-wrap: break-word;"></div>
+    <div id="active_sub"></div>
 
-    <a href="https://github.com/andreinwald/webpush-ios-example" style="position: fixed;bottom: 10px;left:10px;">Code of
-        this page</a>
+    <a id="source_link" href="https://github.com/andreinwald/webpush-ios-example">Code of this page</a>
 </div>
 
 <script src="frontend.js"></script>

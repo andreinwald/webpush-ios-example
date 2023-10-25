@@ -14,3 +14,46 @@ body {
         display: none;
     }
 }
+
+#add-to-home-screen {
+    height: 80%;
+    display: none;
+    background-color: bisque;
+    padding: 10px 10px 20%;
+}
+
+#add-to-home-screen img {
+    display: block;
+    margin: 0 auto;
+    max-height: 100%;
+    max-width: 100%
+}
+
+#scan-qr-code {
+    display: none;
+}
+
+#scan-qr-code img {
+    display: block;
+    max-width: 100%
+}
+
+#subscribe_btn {
+    display: block;
+    width: 100%;
+    line-height: 2
+}
+
+#active_sub {
+    display: none;
+    background-color: #e7e7ff;
+    padding: 20px;
+    word-wrap: break-word;
+}
+
+#source_link {
+    position: fixed;
+    bottom: 10px;
+    color: #fff;
+    left: 10px;
+}
