@@ -9,7 +9,7 @@ WebPush - browser technology that allows site developer send notifications from 
 - instead, you need to <b>generate VAPID</b> (pair of public and private keys) 
 - other things works pretty like Google Chrome WebPush
 
-<img src="images/webpush-iphone-prompt.png">
+<img src="images/webpush-iphone-prompt.png" style="height:400px">
 
 # More details
 - Require adding to Home Screen
