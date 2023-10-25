@@ -34,7 +34,7 @@ body {
     max-width: 100%
 }
 
-#subscribe_btn {
+#subscribe_btn, #test_send_btn {
     display: block;
     width: 100%;
     line-height: 2

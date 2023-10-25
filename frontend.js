@@ -81,15 +81,15 @@ function displaySubscriptionInfo(subscription) {
 }
 
 function testSend() {
-    const title = "New Product Available";
+    const title = "Push title";
     const options = {
-        body: "Take a look at this brand new t-shirt!",
-        icon: "/images/jason-leung-HM6TMmevbZQ-unsplash.jpg",
-        vibrate: [200, 100, 200],
-        tag: "new-product",
-        image: "/images/jason-leung-HM6TMmevbZQ-unsplash.jpg",
-        badge: "https://spyna.it/icons/android-icon-192x192.png",
-        actions: [{action: "Detail", title: "View", icon: "https://via.placeholder.com/128/ff0000"}]
+        body: "Additional text with some description",
+        icon: "https://andreinwald.github.io/webpush-ios-example/images/favicon.png",
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Orange_tabby_cat_sitting_on_fallen_leaves-Hisashi-01A.jpg/1920px-Orange_tabby_cat_sitting_on_fallen_leaves-Hisashi-01A.jpg",
+        data: {
+            "url": "https://andreinwald.github.io/webpush-ios-example/success.html",
+            "message_id": "your_internal_unique_message_id_for_tracking"
+        },
     };
     navigator.serviceWorker.ready.then(async function (serviceWorker) {
         await serviceWorker.showNotification(title, options);
