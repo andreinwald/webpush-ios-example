@@ -80,7 +80,7 @@ function displaySubscriptionInfo(subscription) {
         + JSON.stringify(subscription.toJSON());
 }
 
-function sendTestNotification() {
+function testSend() {
     const title = "New Product Available";
     const options = {
         body: "Take a look at this brand new t-shirt!",
@@ -91,7 +91,7 @@ function sendTestNotification() {
         badge: "https://spyna.it/icons/android-icon-192x192.png",
         actions: [{action: "Detail", title: "View", icon: "https://via.placeholder.com/128/ff0000"}]
     };
-    navigator.serviceWorker.ready.then(function (serviceWorker) {
-        serviceWorker.showNotification(title, options);
+    navigator.serviceWorker.ready.then(async function (serviceWorker) {
+        await serviceWorker.showNotification(title, options);
     });
 }
