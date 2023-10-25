@@ -29,10 +29,6 @@ body {
     max-width: 100%
 }
 
-#scan-qr-code {
-    display: none;
-}
-
 #scan-qr-code img {
     display: block;
     max-width: 100%
