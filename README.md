@@ -3,10 +3,10 @@ WebPush - browser technology that allows site developer send notifications from 
 <b>Demo site https://andreinwald.github.io/webpush-ios-example/ </b>
 
 ### TL;DR iOS WebPush specifics:
-- user required to add your site to Home Screen of his iPhone/iPad
-- manifest.json is required to set display: standalone
-- you dont need to register at apple.com to receive something like GCM_SENDER_ID
-- instead, you need to generate pair of public and private keys, called VAPID
+- user required to add your site to <b>Home Screen</b> of his iPhone/iPad
+- manifest.json is required to set <b>display: standalone</b>
+- you <b>dont need to register at apple.com</b> to receive something like GCM_SENDER_ID
+- instead, you need to <b>generate VAPID</b> (pair of public and private keys) 
 - other things works pretty like Google Chrome WebPush
 
 <img src="images/webpush-iphone-prompt.png">
