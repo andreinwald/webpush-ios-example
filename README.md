@@ -1,28 +1,51 @@
 # WebPush for iOS sample code and demo site
 _WebPush - is browser technology that allows site developer send notifications from backend to subscribers. Now at iPhone and iPad!<br><br>_
-<b>Demo https://andreinwald.github.io/webpush-ios-example/ </b>
+**TL;DR iOS WebPush specifics**
+- user required to add your site to **Home Screen** of his iPhone/iPad
+- manifest.json is required to set **display: standalone**
+- you **don't need** to register at apple.com to receive something like **GCM_SENDER_ID**
+- instead, you need to generate **VAPID** (pair of public and private keys)
+<br>
 
-### TL;DR iOS WebPush specifics:
-- user required to add your site to <b>Home Screen</b> of his iPhone/iPad
-- manifest.json is required to set <b>display: standalone</b>
-- you <b>dont need to register at apple.com</b> to receive something like GCM_SENDER_ID
-- instead, you need to <b>generate VAPID</b> (pair of public and private keys) 
-- other things works pretty like Google Chrome WebPush
-<br><br>
+<b>Demo https://andreinwald.github.io/webpush-ios-example </b>
 
 <img src="images/webpush-iphone-prompt.png" alt="Iphone prompt example" style="height:400px">
 
 ---
 # More info
-- [Require adding to Home Screen](#Require-adding-to-Home-Screen)
-- [Display: standalone](#Display:-standalone)
+- [Installing PWA](#Installing-PWA)
 - [Generating VAPID key](#Generating-VAPID-key)
 - [Saving subscription token](#Saving-subscription-token)
 - [Sending push message](#Sending-push-message)
 
-## Require adding to Home Screen
+## Installing PWA
+WebPush is Progressive Web App(PWA) feature so you need to ask user to enable PWA mode first.<br>
+On iOs devices it can be made with button **"Add to Home Screen"** in browser.<br><br>
+<img src="images/webpush-add-to-home-screen.jpg" alt="Require adding to Home Screen" style="height:400px">
 
-## Display: standalone
+**Also dont forget to set display mode in manifest.json!**
+```html
+<html>
+<head>
+    <link rel="manifest" href="manifest.json"/>
+</head>
+# ...
+```
+manifest.json:
+```json
+{
+  "name": "WebPush iOS example",
+  "display": "standalone"
+}
+```
+**Next you can check that PWA is installed by this code:**
+```javascript
+if (window.navigator.standalone) {
+    // now we can ask for subscription by pushManager.subscribe()
+} else {
+    // we should ask user to add our site home screen
+}
+```
 
 ## Generating VAPID key
 - All subscription tokens associated with that key, so if you change it - you may lose old subscribers
