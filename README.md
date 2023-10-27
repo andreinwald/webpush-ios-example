@@ -1,5 +1,5 @@
 # WebPush for iOS sample code and demo site
-_WebPush - browser technology that allows site developer send notifications from backend to subscribers. Now at iPhone and iPad!<br><br>_
+_WebPush - is browser technology that allows site developer send notifications from backend to subscribers. Now at iPhone and iPad!<br><br>_
 <b>Demo https://andreinwald.github.io/webpush-ios-example/ </b>
 
 ### TL;DR iOS WebPush specifics:
@@ -9,14 +9,20 @@ _WebPush - browser technology that allows site developer send notifications from
 - instead, you need to <b>generate VAPID</b> (pair of public and private keys) 
 - other things works pretty like Google Chrome WebPush
 <br><br>
-<img src="images/webpush-iphone-prompt.png" style="height:400px">
 
-## How to add WebPush at your site:
-- Require adding to Home Screen
-- Display: standalone
+<img src="images/webpush-iphone-prompt.png" alt="Iphone prompt example" style="height:400px">
+
+---
+# More info
+- [Require adding to Home Screen](#Require-adding-to-Home-Screen)
+- [Display: standalone](#Display:-standalone)
 - [Generating VAPID key](#Generating-VAPID-key)
-- Saving subscription token
-- Sending push message
+- [Saving subscription token](#Saving-subscription-token)
+- [Sending push message](#Sending-push-message)
+
+## Require adding to Home Screen
+
+## Display: standalone
 
 ## Generating VAPID key
 - All subscription tokens associated with that key, so if you change it - you may lose old subscribers
@@ -32,8 +38,8 @@ openssl ec -in vapid_private.pem -outform DER|tail -c +8|head -c 32|base64|tr -d
 echo 'VAPID private:' ; cat vapid_private.txt
 # Example: Mz8GQ4Fx16dI-iEUZTp6KTLVsUrcIOfJmWWXlKb0Qgo
 ```
+## Saving subscription token
 
-## Result of subscription
 For desktop and mobile Safari:
 ```json
 {
@@ -56,9 +62,28 @@ And this will be for Google Chrome (FCM):
 }
 ```
 
+## Sending push message
+You can send WebPush from **frontend**:
+```javascript
+const title = "Push title";
+const options = {
+    body: "Additional text with some description",
+    icon: "https://andreinwald.github.io/webpush-ios-example/images/favicon.png",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Orange_tabby_cat_sitting_on_fallen_leaves-Hisashi-01A.jpg/1920px-Orange_tabby_cat_sitting_on_fallen_leaves-Hisashi-01A.jpg",
+    data: {
+        "url": "https://andreinwald.github.io/webpush-ios-example/success.html",
+        "message_id": "your_internal_unique_message_id_for_tracking"
+    },
+};
+navigator.serviceWorker.ready.then(function (serviceWorker) {
+    serviceWorker.showNotification(title, options);
+});
+```
+
+Or from **backend**, for example Node.js:
 
 
-Resources:
+## Resources:
 - [Meet Web Push for Safari on developer.apple.com](https://developer.apple.com/videos/play/wwdc2022/10098/)
 - [Sending web push notifications in web apps and browsers on developer.apple.com](https://developer.apple.com/documentation/usernotifications/sending_web_push_notifications_in_web_apps_and_browsers)
 - [Vapid token standard](https://blog.mozilla.org/services/2016/08/23/sending-vapid-identified-webpush-notifications-via-mozillas-push-service/)
@@ -67,7 +92,7 @@ Resources:
 - [Web App Manifest for standalone mode](https://developer.mozilla.org/en-US/docs/Web/Manifest)
 - [The ServiceWorker lifecycle](https://web.dev/articles/service-worker-lifecycle)
 
-Keywords:
+## Keywords:
 - ServiceWorkerRegistration.pushManager is undefined
 - undefined is not an object pushManager.subscribe
 - User denied push permission
