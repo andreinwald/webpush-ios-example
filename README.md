@@ -48,6 +48,7 @@ if (window.navigator.standalone) {
 ```
 
 ## Generating VAPID key
+You **don't need** to register at apple.com to receive something like **GCM_SENDER_ID**, just generate VAPID key
 - All subscription tokens associated with that key, so if you change it - you may lose old subscribers
 - You MUST need generate your own VAPID keys!
 - Newer share your PRIVATE_VAPID_KEY. It should be stored in a safe storage
@@ -62,7 +63,20 @@ openssl ec -in vapid_private.pem -outform DER|tail -c +8|head -c 32|base64|tr -d
 echo 'VAPID private:' ; cat vapid_private.txt
 # Example: Mz8GQ4Fx16dI-iEUZTp6KTLVsUrcIOfJmWWXlKb0Qgo
 ```
+
+Then use it:
+```javascript
+const VAPID_PUBLIC_KEY = 'BAwUJxIa7mJZMqu78Tfy2...';
+let subscriptionOptions = {
+    userVisibleOnly: true,
+    applicationServerKey: VAPID_PUBLIC_KEY
+};
+let subscription = await pushManager.subscribe(subscriptionOptions);
+```
+
 ## Saving subscription token
+For most cases after receiving subscription you going to send it to backend via fetch or something.<br>
+**Examples how subscription data looks:**<br><br>
 
 For desktop and mobile Safari:
 ```json
