@@ -118,8 +118,38 @@ navigator.serviceWorker.ready.then(function (serviceWorker) {
 });
 ```
 
-Or from **backend**, for example Node.js:
+Or from **backend**, for example **Node.js**:
+```javascript
+// npm install web-push
+const webpush = require('web-push');
 
+webpush.setVapidDetails(
+    'https://andreinwald.github.io/webpush-ios-example/',
+    VAPID_PUBLIC_KEY,
+    VAPID_PRIVATE_KEY
+);
+
+const pushSubscription = {
+        "endpoint": "https://web.push.apple.com/QGuQyavXutnMH...",
+        "keys": {
+            "p256dh": "BF6-hyiRMKKKiiH...",
+            "auth": "lM6vKjBJ1UX..."
+        }
+    }
+;
+
+let pushData = {
+        "body": "Additional text with some description",
+        "icon": "https://andreinwald.github.io/webpush-ios-example/images/favicon.png",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Orange_tabby_cat_sitting_on_fallen_leaves-Hisashi-01A.jpg/1920px-Orange_tabby_cat_sitting_on_fallen_leaves-Hisashi-01A.jpg",
+        "data": {
+            "url": "https://andreinwald.github.io/webpush-ios-example/success.html",
+            "message_id": "your_internal_unique_message_id_for_tracking"
+        }
+    }
+;
+webpush.sendNotification(pushSubscription, "Push title", pushData);
+```
 
 ## Resources:
 - [Meet Web Push for Safari on developer.apple.com](https://developer.apple.com/videos/play/wwdc2022/10098/)
