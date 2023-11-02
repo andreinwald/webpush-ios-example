@@ -34,7 +34,7 @@ self.addEventListener('notificationclick', function (event) {
 
     clients.openWindow(event.notification.data.url)
         .then(() => {
-            // You can save to your analytics fact that push was clicked
+            // You can send fetch request to your analytics API fact that push was clicked
             fetch('https://your_backend_server.com/track_click?message_id=' + pushData.data.message_id);
         });
 });

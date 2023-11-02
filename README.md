@@ -15,7 +15,8 @@ _WebPush - is browser technology that allows site developer send notifications f
 # More info
 - [Installing PWA](#Installing-PWA)
 - [Generating VAPID key](#Generating-VAPID-key)
-- [Saving subscription token](#Saving-subscription-token)
+- [Subscription and saving token](#Subscription-and-saving-token)
+- [Service worker](#Service-worker)
 - [Sending push message](#Sending-push-message)
 
 ## Installing PWA
@@ -23,7 +24,7 @@ WebPush is Progressive Web App(PWA) feature so you need to ask user to enable PW
 On iOs devices it can be made with button **"Add to Home Screen"** in browser.<br><br>
 <img src="images/webpush-add-to-home-screen.jpg" alt="Require adding to Home Screen" style="height:400px">
 
-**Also dont forget to set display mode in manifest.json!**
+**Also don't forget to set display mode in manifest.json!**
 ```html
 <html>
 <head>
@@ -71,13 +72,24 @@ let subscriptionOptions = {
     userVisibleOnly: true,
     applicationServerKey: VAPID_PUBLIC_KEY
 };
+```
+<br>
+See full frontend example in [frontend.js](/frontend.js)
+
+## Subscription and saving token
+After registering Service Worker and providing VAPID_PUBLIC_KEY you can request user to subscribe.<br>
+Best practice will be to ask user about subscription in html popup first.<br>
+Then you can call:
+```javascript
 let subscription = await pushManager.subscribe(subscriptionOptions);
 ```
+See full example in [frontend.js](/frontend.js)
+<br><br>
 
-## Saving subscription token
-For most cases after receiving subscription you going to send it to backend via fetch or something.<br>
-**Examples how subscription data looks:**<br><br>
-
+After receiving subscription you going to send it to backend via fetch or something.<br>
+You will need that for [sending push message from backend](#Sending-push-message)
+<br>
+**Examples how subscription token looks:**<br><br>
 For desktop and mobile Safari:
 ```json
 {
@@ -99,6 +111,23 @@ And this will be for Google Chrome (FCM):
   }
 }
 ```
+
+## Service worker
+For receiving, displaying push message and processing click on it - you need to use these service worker methods:
+```javascript
+self.addEventListener('push', (event) => {
+    let pushData = event.data.json();
+    // ...
+    self.registration.showNotification(pushData.title, pushData)
+});
+
+self.addEventListener('notificationclick', function (event) {
+    clients.openWindow(event.notification.data.url)
+    // ...
+    // You can send fetch request to your analytics API fact that push was clicked
+});
+```
+See full example in [serviceworker.js](/serviceworker.js)
 
 ## Sending push message
 You can send WebPush from **frontend**:
