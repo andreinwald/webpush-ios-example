@@ -74,7 +74,8 @@ let subscriptionOptions = {
 };
 ```
 <br>
-See full frontend example in [frontend.js](/frontend.js)
+
+See full example in [frontend.js](/frontend.js)
 
 ## Subscription and saving token
 After registering Service Worker and providing VAPID_PUBLIC_KEY you can request user to subscribe.<br>
@@ -86,7 +87,7 @@ let subscription = await pushManager.subscribe(subscriptionOptions);
 See full example in [frontend.js](/frontend.js)
 <br><br>
 
-After receiving subscription you going to send it to backend via fetch or something.<br>
+After receiving subscription you're going to send it to backend via fetch or something.<br>
 You will need that for [sending push message from backend](#Sending-push-message)
 <br>
 **Examples how subscription token looks:**<br><br>
