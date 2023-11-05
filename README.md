@@ -14,8 +14,8 @@ _WebPush - is browser technology that allows site developer send notifications f
 ---
 # More info
 - [Basic WebPush subscription code](#Basic-WebPush-subscription-code)
-- [Installing PWA](#Installing-PWA)
 - [Generating VAPID key](#Generating-VAPID-key)
+- [Installing PWA on iOS by adding to Home Screen](#Installing-PWA)
 - [Subscription and saving token](#Subscription-and-saving-token)
 - [Service worker](#Service-worker)
 - [Sending push message](#Sending-push-message)
@@ -34,6 +34,11 @@ Example of basic subscription code, that works in Google Chrome and Firefox.<br>
 
     function subscribe() {
         navigator.serviceWorker.ready.then(async function (serviceWorker) {
+            if (!serviceWorker.pushManager) {
+                // Maybe iOS on iPhone or iPad - should ask for adding to Home Screen
+                alert('pushManager is not enabled');
+                return;
+            }            
             let subscriptionOptions = {
                 userVisibleOnly: true,
                 applicationServerKey: '____INSERT_VAPID_PUBLIC_KEY_HERE_____'
@@ -50,6 +55,40 @@ You can run it locally by creating index.html and serviceworker.js files with a 
 ```shell
 npx http-server
 ```
+
+## Generating VAPID key
+In example above you need to replace VAPID_PUBLIC_KEY to your own.<br><br>
+
+You **don't need** to register at apple.com to receive something like **GCM_SENDER_ID**, just generate VAPID key
+- All subscription tokens associated with that key, so if you change it - you may lose old subscribers
+- You MUST need generate your own VAPID keys!
+- Newer share your PRIVATE_VAPID_KEY. It should be stored in a safe storage
+<br>
+Run these commands in your terminal:<br>
+```shell
+openssl ecparam -genkey -name prime256v1 -out vapid_private.pem
+openssl ec -in vapid_private.pem -pubout -outform DER|tail -c 65|base64|tr -d '=' |tr '/+' '_-' >> vapid_public.txt
+echo 'VAPID public:' ; cat vapid_public.txt
+# Example: BCa4t85iJ0AYDG__5r48lo-HNdpi_29458t8R6zRTsF1OUi1QyvCRd_tOyXVkqH3nzsZdMzSRLlKJTXQyN7QI4s
+
+openssl ec -in vapid_private.pem -outform DER|tail -c +8|head -c 32|base64|tr -d '=' |tr '/+' '_-' >> vapid_private.txt
+echo 'VAPID private:' ; cat vapid_private.txt
+# Example: Mz8GQ4Fx16dI-iEUZTp6KTLVsUrcIOfJmWWXlKb0Qgo
+```
+
+Then use it:
+```javascript
+const VAPID_PUBLIC_KEY = 'BAwUJxIa7mJZMqu78Tfy2...';
+let subscriptionOptions = {
+    userVisibleOnly: true,
+    applicationServerKey: VAPID_PUBLIC_KEY
+};
+```
+<br>
+
+See full example in [frontend.js](/frontend.js)
+
+
 
 ## Installing PWA
 WebPush is Progressive Web App(PWA) feature so you need to ask user to enable PWA mode first.<br>
@@ -80,34 +119,6 @@ if (window.navigator.standalone) {
 }
 ```
 
-## Generating VAPID key
-You **don't need** to register at apple.com to receive something like **GCM_SENDER_ID**, just generate VAPID key
-- All subscription tokens associated with that key, so if you change it - you may lose old subscribers
-- You MUST need generate your own VAPID keys!
-- Newer share your PRIVATE_VAPID_KEY. It should be stored in a safe storage
-
-```shell
-openssl ecparam -genkey -name prime256v1 -out vapid_private.pem
-openssl ec -in vapid_private.pem -pubout -outform DER|tail -c 65|base64|tr -d '=' |tr '/+' '_-' >> vapid_public.txt
-echo 'VAPID public:' ; cat vapid_public.txt
-# Example: BCa4t85iJ0AYDG__5r48lo-HNdpi_29458t8R6zRTsF1OUi1QyvCRd_tOyXVkqH3nzsZdMzSRLlKJTXQyN7QI4s
-
-openssl ec -in vapid_private.pem -outform DER|tail -c +8|head -c 32|base64|tr -d '=' |tr '/+' '_-' >> vapid_private.txt
-echo 'VAPID private:' ; cat vapid_private.txt
-# Example: Mz8GQ4Fx16dI-iEUZTp6KTLVsUrcIOfJmWWXlKb0Qgo
-```
-
-Then use it:
-```javascript
-const VAPID_PUBLIC_KEY = 'BAwUJxIa7mJZMqu78Tfy2...';
-let subscriptionOptions = {
-    userVisibleOnly: true,
-    applicationServerKey: VAPID_PUBLIC_KEY
-};
-```
-<br>
-
-See full example in [frontend.js](/frontend.js)
 
 ## Subscription and saving token
 After registering Service Worker and providing VAPID_PUBLIC_KEY you can request user to subscribe.<br>
