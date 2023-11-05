@@ -64,7 +64,8 @@ You **don't need** to register at apple.com to receive something like **GCM_SEND
 - You MUST need generate your own VAPID keys!
 - Newer share your PRIVATE_VAPID_KEY. It should be stored in a safe storage
 <br>
-Run these commands in your terminal:<br>
+Run these commands in your terminal:
+
 ```shell
 openssl ecparam -genkey -name prime256v1 -out vapid_private.pem
 openssl ec -in vapid_private.pem -pubout -outform DER|tail -c 65|base64|tr -d '=' |tr '/+' '_-' >> vapid_public.txt
