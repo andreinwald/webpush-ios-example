@@ -194,5 +194,6 @@ See example in [backend-sender.js](/backend-sender.js)
 
 ## Keywords:
 - ServiceWorkerRegistration.pushManager is undefined
+- applicationServerKey is not properly base64url-encoded
 - undefined is not an object pushManager.subscribe
 - User denied push permission
