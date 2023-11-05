@@ -13,11 +13,43 @@ _WebPush - is browser technology that allows site developer send notifications f
 
 ---
 # More info
+- [Basic WebPush subscription code](#Basic-WebPush-subscription-code)
 - [Installing PWA](#Installing-PWA)
 - [Generating VAPID key](#Generating-VAPID-key)
 - [Subscription and saving token](#Subscription-and-saving-token)
 - [Service worker](#Service-worker)
 - [Sending push message](#Sending-push-message)
+
+## Basic WebPush subscription code
+Example of basic subscription code, that works in Google Chrome and Firefox.<br>
+```html
+<html>
+<body>
+<button onclick="subscribe()">Subscribe</button>
+
+<script>
+    // You can use serviceworker.js from this repo
+    // It should contain listeners for push and notificationclick events
+    navigator.serviceWorker.register('/serviceworker.js');
+
+    function subscribe() {
+        navigator.serviceWorker.ready.then(async function (serviceWorker) {
+            let subscriptionOptions = {
+                userVisibleOnly: true,
+                applicationServerKey: '____INSERT_VAPID_PUBLIC_KEY_HERE_____'
+            };
+            let subscription = await serviceWorker.pushManager.subscribe(subscriptionOptions);
+            console.log('Subscription token:', subscription.toJSON());
+        });
+    }
+</script>
+</body>
+</html>
+```
+You can run it locally by creating index.html and serviceworker.js files with a simple html server:
+```shell
+npx http-server
+```
 
 ## Installing PWA
 WebPush is Progressive Web App(PWA) feature so you need to ask user to enable PWA mode first.<br>
