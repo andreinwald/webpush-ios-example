@@ -15,7 +15,7 @@ _WebPush - is browser technology that allows site developer send notifications f
 # More info
 - [Basic WebPush subscription code](#Basic-WebPush-subscription-code)
 - [Generating VAPID key](#Generating-VAPID-key)
-- [Installing PWA on iOS by adding to Home Screen](#Installing-PWA)
+- [Installing PWA on iOS by adding to Home Screen](#Installing-PWA-on-iOS-by-adding-to-Home-Screen)
 - [Subscription and saving token](#Subscription-and-saving-token)
 - [Service worker](#Service-worker)
 - [Sending push message](#Sending-push-message)
@@ -91,7 +91,7 @@ See full example in [frontend.js](/frontend.js)
 
 
 
-## Installing PWA
+## Installing PWA on iOS by adding to Home Screen
 WebPush is Progressive Web App(PWA) feature so you need to ask user to enable PWA mode first.<br>
 On iOs devices it can be made with button **"Add to Home Screen"** in browser.<br><br>
 <img src="images/webpush-add-to-home-screen.jpg" alt="Require adding to Home Screen" style="height:400px">
