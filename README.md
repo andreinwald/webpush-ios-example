@@ -1,15 +1,19 @@
 # WebPush for iOS sample code and demo site
-_WebPush - is browser technology that allows site developer send notifications from backend to subscribers. Now at iPhone and iPad!<br><br>_
+_WebPush - is browser technology that allows site developer send notifications from backend to subscribers. Now at iPhone and iPad!_
+<br><br>
+<b>Demo https://andreinwald.github.io/webpush-ios-example </b><br>
+
+<img src="images/webpush-iphone-prompt.png" alt="Iphone prompt example" style="height:400px">
+
+<br><br>
 **TL;DR iOS WebPush specifics**
 - user required to add your site to **Home Screen** of his iPhone/iPad
 - manifest.json is required to set **display: standalone**
 - you **don't need** to register at apple.com to receive something like **GCM_SENDER_ID**
 - instead, you need to generate **VAPID** (pair of public and private keys)
-<br>
+<br/>
 
-<b>Demo https://andreinwald.github.io/webpush-ios-example </b>
-
-<img src="images/webpush-iphone-prompt.png" alt="Iphone prompt example" style="height:400px">
+https://github.com/andreinwald/webpush-ios-example/assets/7912182/fa89c846-4b97-4fe2-93ca-0c4f4e2e9647
 
 ---
 # More info
