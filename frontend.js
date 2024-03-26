@@ -1,7 +1,3 @@
-if (navigator.serviceWorker) {
-    initServiceWorker();
-}
-
 async function initServiceWorker() {
     let swRegistration = await navigator.serviceWorker.register('https://andreinwald.github.io/webpush-ios-example/serviceworker.js', {scope: '/webpush-ios-example/'})
     let pushManager = swRegistration.pushManager;
@@ -78,11 +74,19 @@ function testSend() {
         icon: "https://andreinwald.github.io/webpush-ios-example/images/push_icon.jpg",
         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Orange_tabby_cat_sitting_on_fallen_leaves-Hisashi-01A.jpg/1920px-Orange_tabby_cat_sitting_on_fallen_leaves-Hisashi-01A.jpg",
         data: {
-            "url": "https://andreinwald.github.io/webpush-ios-example/success.html",
+            "url": "https://andreinwald.github.io/webpush-ios-example/?page=success",
             "message_id": "your_internal_unique_message_id_for_tracking"
         },
     };
     navigator.serviceWorker.ready.then(async function (serviceWorker) {
         await serviceWorker.showNotification(title, options);
     });
+}
+
+if ((new URLSearchParams(window.location.search)).get('page') === 'success') {
+    document.getElementById('content').innerHTML = 'You successfully opened page from WebPush! (this url was that was set in json data param)';
+}
+
+if (navigator.serviceWorker) {
+    initServiceWorker();
 }
