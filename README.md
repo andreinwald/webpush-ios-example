@@ -68,20 +68,17 @@ You **don't need** to register at apple.com to receive something like **GCM_SEND
 - You MUST need generate your own VAPID keys!
 - Newer share your PRIVATE_VAPID_KEY. It should be stored in a safe storage
 <br>
-Run these commands in your terminal:
+Run this command in your terminal for generating:
 
 ```shell
-openssl ecparam -genkey -name prime256v1 -out vapid_private.pem
-openssl ec -in vapid_private.pem -pubout -outform DER|tail -c 65|base64|tr -d '=' |tr '/+' '_-' >> vapid_public.txt
-echo 'VAPID public:' ; cat vapid_public.txt
-# Example: BCa4t85iJ0AYDG__5r48lo-HNdpi_29458t8R6zRTsF1OUi1QyvCRd_tOyXVkqH3nzsZdMzSRLlKJTXQyN7QI4s
+npx web-push generate-vapid-keys
 
-openssl ec -in vapid_private.pem -outform DER|tail -c +8|head -c 32|base64|tr -d '=' |tr '/+' '_-' >> vapid_private.txt
-echo 'VAPID private:' ; cat vapid_private.txt
-# Example: Mz8GQ4Fx16dI-iEUZTp6KTLVsUrcIOfJmWWXlKb0Qgo
+# result will be like:
+# Public Key: BAwUJxIa7mJZMqu78Tfy2vqbp1tFuj4KwX3gRuF2e_5WGB0tGnvCBGtvVDEa6YdjnjAors3E1WBlcCTow6pGg
+# Private Key: Mmi54fYPtCgTQB1_8-QoH0xJOq3H6z8nBUG71t0ezCA
 ```
 
-Then use it:
+Then use it in frontend.js:
 ```javascript
 const VAPID_PUBLIC_KEY = 'BAwUJxIa7mJZMqu78Tfy2...';
 let subscriptionOptions = {
