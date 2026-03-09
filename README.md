@@ -95,7 +95,7 @@ See full example in [frontend.js](/frontend.js)
 ## Installing PWA on iOS by adding to Home Screen
 WebPush is Progressive Web App(PWA) feature so you need to ask user to enable PWA mode first.<br>
 On iOs devices it can be made with button **"Add to Home Screen"** in browser.<br><br>
-<img src="images/webpush-add-to-home-screen.jpg" alt="Require adding to Home Screen" style="height:400px">
+<img src="images/webpush-add-to-home-screen.png" alt="Require adding to Home Screen" style="height:400px">
 
 Also don't forget to set display mode in **manifest.json**!<br>
 Manifest.json required to set "display: standalone", that called by Apple "Home Screen web app"<br>
