@@ -22,7 +22,7 @@ https://github.com/andreinwald/webpush-ios-example/assets/7912182/fa89c846-4b97-
 - [Installing PWA on iOS by adding to Home Screen](#Installing-PWA-on-iOS-by-adding-to-Home-Screen)
 - [Subscription and saving token (Prompt with permission)](#Subscription-and-saving-token)
 - [Service worker](#Service-worker)
-- [Sending push message](#Sending-push-message)
+- [Sending push from backend](#Sending-push-from-backend)
 
 ## Basic WebPush subscription code
 Example of basic subscription code, that works in Google Chrome and Firefox.<br>
@@ -180,26 +180,30 @@ self.addEventListener('notificationclick', function (event) {
 ```
 See full example in [serviceworker.js](/serviceworker.js)
 
-## Sending push message
-You can send WebPush from **frontend**:
+## Sending push from backend
+When user subscribed, you can send notification:
 ```javascript
-const title = "Push title";
-const options = {
-    body: "Additional text with some description",
-    icon: "https://andreinwald.github.io/webpush-ios-example/images/favicon.png",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Orange_tabby_cat_sitting_on_fallen_leaves-Hisashi-01A.jpg/1920px-Orange_tabby_cat_sitting_on_fallen_leaves-Hisashi-01A.jpg",
-    data: {
-        "url": "https://andreinwald.github.io/webpush-ios-example/?page=success",
-        "message_id": "your_internal_unique_message_id_for_tracking"
-    },
-};
-navigator.serviceWorker.ready.then(function (serviceWorker) {
-    serviceWorker.showNotification(title, options);
-});
-```
+import webpush from 'web-push';
 
-Or from **Backend**, for example by using **Node.js** [web-push library](https://github.com/web-push-libs/web-push) <br> 
-See example in [backend-sender.js](/backend-sender.js)
+const pushSubscription = { 
+    "endpoint": "https://fcm.googleapis.com/fcm/send/fXbyGY04zHY:APA91bE-EZI...",
+    "expirationTime": null,
+    "keys": {
+        "p256dh": "BHqcQRz0HXwdZXZOT5GkQC_d5P1XFcevTkNPuJqh...", // token of specific user
+        "auth": "o3SJkOwZFr7deVnT98..."
+    }
+};
+
+let pushData = JSON.stringify({
+    "title": "Push title",
+    "body": "Additional text with some description",
+    "data": {
+        "url": "https://andreinwald.github.io/?page=success",
+    }
+});
+webpush.sendNotification(pushSubscription, pushData);
+```
+See details in [backend-sender.js](/backend-sender.js)
 
 ## Declarative webpush
 https://webkit.org/blog/16535/meet-declarative-web-push/
