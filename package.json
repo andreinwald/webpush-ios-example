@@ -1,0 +1,10 @@
+{
+  "type": "module",
+  "scripts": {
+    "frontend": "npx http-server",
+    "backend": "node backend-sender.js"
+  },
+  "dependencies": {
+    "web-push": "^3.6.7"
+  }
+}
