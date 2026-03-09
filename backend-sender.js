@@ -1,13 +1,12 @@
 // Public part of VAPID key, generation of that covered in README
+// You MUST need generate your own VAPID keys! See in README.md how to generate them
 // All subscription tokens associated with that key, so if you change it - you may lose old subscribers
-// You MUST need generate your own VAPID keys!
-// Newer share your PRIVATE_VAPID_KEY. It should be stored in a safe storage
 const VAPID_PUBLIC_KEY = "BAwUJxIa7mJZMqu78Tfy2Sb1BWnYiAatFCe1cxpnM-hxNtXjAwaNKz1QKLU8IYYhjUASOFzSvSnMgC00vfsU0IM"
 const VAPID_PRIVATE_KEY = "wH3Mire4Nrw7UWiYuD4e76qSezQ-5Nf_9n_HK3vHBSU";
 
 
 // npm install web-push
-const webpush = require('web-push');
+import webpush from 'web-push';
 
 webpush.setVapidDetails(
     'https://andreinwald.github.io/webpush-ios-example/',
@@ -16,15 +15,15 @@ webpush.setVapidDetails(
 );
 
 // CHANGE TO YOUR TOKEN FOR TEST
+// You will receive that token after subscription for push notifications
 const pushSubscription = {
-        "endpoint": "https://fcm.googleapis.com/fcm/send/fXbyGY04zHY:APA91bE-EZI...",
-        "expirationTime": null,
-        "keys": {
-            "p256dh": "BHqcQRz0HXwdZXZOT5GkQC_d5P1XFcevTkNPuJqh...",
-            "auth": "o3SJkOwZFr7deVnT98..."
-        }
+    "endpoint": "https://fcm.googleapis.com/fcm/send/fXbyGY04zHY:APA91bE-EZI...",
+    "expirationTime": null,
+    "keys": {
+        "p256dh": "BHqcQRz0HXwdZXZOT5GkQC_d5P1XFcevTkNPuJqh...",
+        "auth": "o3SJkOwZFr7deVnT98..."
     }
-;
+};
 
 let pushData = JSON.stringify({
     "title": "Push title",
