@@ -85,6 +85,7 @@ let subscriptionOptions = {
     userVisibleOnly: true,
     applicationServerKey: VAPID_PUBLIC_KEY
 };
+// Newer share or put into frontend your PRIVATE_VAPID_KEY!
 ```
 <br>
 
