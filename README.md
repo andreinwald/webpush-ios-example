@@ -200,6 +200,11 @@ navigator.serviceWorker.ready.then(function (serviceWorker) {
 Or from **Backend**, for example by using **Node.js** [web-push library](https://github.com/web-push-libs/web-push) <br> 
 See example in [backend-sender.js](/backend-sender.js)
 
+## Declarative webpush
+https://webkit.org/blog/16535/meet-declarative-web-push/
+
+Declarative Web Push allows web developers to request a Web Push subscription and display user visible notifications without requiring an installed service worker. Service worker JavaScript can optionally change the contents of an incoming notification. Unlike with original Web Push, there is no penalty for service workers failing to display a notification; the declarative push message itself is used as a fallback in case the optional JavaScript processing step fails.
+
 ## Resources:
 - [Meet Web Push for Safari on developer.apple.com](https://developer.apple.com/videos/play/wwdc2022/10098/)
 - [Sending web push notifications in web apps and browsers on developer.apple.com](https://developer.apple.com/documentation/usernotifications/sending_web_push_notifications_in_web_apps_and_browsers)
